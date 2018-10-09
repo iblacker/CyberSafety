@@ -7,6 +7,7 @@
             </header>
             <body>
                 <form id="textstuff" @submit= "validText">
+                    <label>Module Title:</label>
                     <input type="text" @input="addEvent" @change="addEvent" />
                     <VueTrix inputId="editor1" v-model="editorContent"/>
                     <input type="submit" value="Submit">
