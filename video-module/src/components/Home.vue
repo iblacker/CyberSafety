@@ -72,6 +72,10 @@ input {
   font-size: 24px;
   border-radius: 8px 8px;
   border: 1px solid #ccc;
+  padding: 10px;
+  
 }
-
+input:focus{
+  outline: none;
+}
 </style>
