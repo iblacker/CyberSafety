@@ -8,7 +8,7 @@ import CreateCourse from './components/CreateCourse.vue'
 import CloneCourse from './components/CloneCourse.vue'
 import CourseStatus from './components/CourseStatus.vue'
 import TextModule from './components/TextModule.vue'
-
+import VideoModule from './components/VideoModule.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -52,6 +52,11 @@ export default new Router({
       path: '/TextModule',
       name: 'TextModule',
       component: TextModule
+    },
+    {
+      path: '/VideoModule',
+      name: 'VideoModule',
+      component: VideoModule
     }
   ]
 })

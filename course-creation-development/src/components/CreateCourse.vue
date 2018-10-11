@@ -13,6 +13,7 @@
         <button v-on:click = "addAudio()">Add Audio</button>
         <button v-on:click = "addPresentation()">Add Presentation</button>
         <router-link to="/TextModule">Add Text</router-link>
+        <router-link to="/VideoModule">Add Video</router-link>
 
       </form>
 

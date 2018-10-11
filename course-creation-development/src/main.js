@@ -4,7 +4,8 @@ import VeeValidate from 'vee-validate'
 import 'vue-trix'
 import router from './router'
 import VModal from 'vue-js-modal'
- 
+
+
 Vue.use(VModal)
 
 Vue.use(VeeValidate);
