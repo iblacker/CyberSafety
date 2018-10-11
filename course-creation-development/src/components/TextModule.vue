@@ -1,30 +1,39 @@
 <template>
     <main>
-        <button v-on:click= "show()">Show Modal</button>
-        <modal name="textM">
-            <header>
-                <h2>Text Module Set-Up Wizard</h2>
-            </header>
-            <body>
-                <form id="textstuff" @submit= "validText">
-                    <label>Module Title:</label>
-                    <input type="text" @input="addEvent" @change="addEvent" />
-                    <VueTrix inputId="editor1" v-model="editorContent"/>
-                    <input type="submit" value="Submit">
-                </form>
-            </body>
-        </modal>
+        <form id="textStuff" @submit.prevent= "addText">
+            <input type="text" name= "ttl" id= "ttl"  v-model= "moduleTitle" />
+            <VueTrix v-model= "editorContent"/>
+            <input type="submit" value= "Submit">
+        </form>
+        <TextModal v-if= "submitted" v-bind:moduleTitle= "moduleTitle" v-bind:editorContent= "editorContent" ></TextModal>
     </main>
 </template>
 
 <script>
+    import TextModal from './TextModal.vue';
     export default {
+        components: {
+            TextModal
+        },
+        data() {
+            return {
+                moduleTitle: '',
+                courseID: 0,
+                moduleID: 0,
+                contentType: '',
+                editorContent: '',
+                submitted: false
+            }
+        },
         methods: {
-            show () {
-                this.$modal.show('textM');
-            },
-            hide () {
-                this.$modal.hide('textM');
+           
+            addText: function(){
+                this.courseID = 5;
+                this.moduleID = 9;
+                this.contentType = 'text';
+                submitted: true;
+                console.log(this);
+                this.$emit('shows');
             }
         },
         mounted: function () {
