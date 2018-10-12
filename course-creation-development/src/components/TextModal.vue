@@ -7,7 +7,7 @@
             <div v-html="editorContent"></div>       
         </body>
         <footer>
-            <router-link :to="{ name: 'CreateCourse', query: { courseID: courseID, moduleID: moduleID, contentType: contentType, moduleTitle: moduleTitle, editorContent: editorContent }}">Finished Module</router-link>
+            <router-link :to="{ name: 'CreateCourse', query: { courseID: courseID, moduleID: moduleID, contentType: contentType, moduleTitle: moduleTitle, editorContent: editorContent }}" tag="button">Finished Module</router-link>
         </footer>
     </modal>
 </template>
