@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import router from '../router'
     import TextModal from './TextModal.vue';
     export default {
         components: {
@@ -48,6 +49,11 @@
             },
 
             showDemo: function(){
+                this.moduleTitle = this.$route.query.moduleTitle;
+                this.moduleID = this.$route.query.moduleID;
+                this.courseID = this.$route.query.courseID;
+                this.contentType = this.$route.query.contentType;
+                this.module.editorContent = this.$route.query.editorContent;
                 this.submitted = true;
                 this.$refs.modal.show()
             },
@@ -58,9 +64,10 @@
             }
         },
         mounted: function () {
-            this.$nextTick(function () {
-                this.$modal.show('textM');
-            })
+            if(this.$route.query.moduleTitle && this.$route.query.moduleID && this.$route.query.moduleTitle 
+                 && this.$route.query.moduleTitle && this.$route.query.moduleTitle){
+                     showDemo();
+            }
         }
     }   
 </script>
