@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-window.videojs = require('video.js');
+//window.videojs = require('video.js');
 //import videojs from 'video.js'
 export default {
     name: 'VideoModule',
