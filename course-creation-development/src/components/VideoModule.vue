@@ -8,6 +8,10 @@
     <span>Example: https://staging.coverr.co/s3/mp4/Snow-motion.mp4</span>
     <br>
     <button v-on:click="addVideo(videos.count)" id="addVideo">Add New Video</button>
+    <br>
+    <router-link class="button" :to="{ name: 'CreateCourse', params: { courseID, newVideoId, newVideoTitle, newVideoUrl, contentType } }">
+         Send to CreateCourse
+      </router-link>
     <ul>
         <li v-for="video in videos" :key="video.id" >
             <h3>{{ video.title + " (" + video.id + ")"}}</h3>
@@ -37,6 +41,8 @@ export default {
     data() {
         return {
             name: "",
+            courseID: 0,
+            contentType: 'video',
             showModal: true,
             videos: [{
                 id: 0,
