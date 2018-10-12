@@ -1,13 +1,13 @@
 <template>
-     <modal ref= "textM" id= "textM">
+     <modal v-show="submitted" name= "textM" height="auto" :scrollable="true" :adaptive="true">
         <header>
             <h2>{{moduleTitle}}</h2>
         </header>
         <body>
-            {{content}}        
+            <div v-html="editorContent"></div>       
         </body>
         <footer>
-            {{courseID}} {{moduleID}}   {{contentType}}
+            <router-link :to="{ name: 'CreateCourse', query: { courseID: courseID, moduleID: moduleID, contentType: contentType, moduleTitle: moduleTitle, editorContent: editorContent }}">Finished Module</router-link>
         </footer>
     </modal>
 </template>
@@ -19,15 +19,22 @@
             moduleID: Number,
             contentType: String,
             moduleTitle: String,
-            content: Object,
-            submitted: Boolean
+            editorContent: String
+        },
+        data() {
+            return {
+                submitted: false
+            }
         },
         methods: {
             show () {
-                this.$modal.show('textM');
+                this.submitted = true;
+                console.log('Modal');
             },
             hide () {
                 this.$modal.hide('textM');
+                this.submitted = false;
+                this.$emit("hidden")
             }
         },
         mounted: function () {
