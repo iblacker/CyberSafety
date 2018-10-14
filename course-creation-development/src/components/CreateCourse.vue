@@ -44,15 +44,14 @@ export default {
   name: 'Modules',
   data() {
     return {
-      modules: [
-        { "module": "Quiz"},
-        { "module": "Image"},
-        { "module": "Video"}
-      ]
+      modules: []
     }
   },
 
   methods: {
+    createQuiz() {
+      
+    },
     addQuiz() {
           alert("Content coming soon!");
           this.modules.push({module: "Quiz"});
