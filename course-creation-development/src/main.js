@@ -4,12 +4,13 @@ import VeeValidate from 'vee-validate'
 import 'vue-trix'
 import router from './router'
 import VModal from 'vue-js-modal'
-
+import axios from 'axios'
 
 Vue.use(VModal)
-
 Vue.use(VeeValidate);
 Vue.config.productionTip = false
+
+
 
 new Vue({
   router,

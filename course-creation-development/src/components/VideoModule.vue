@@ -7,64 +7,48 @@
     <input type="text" id="newVideoUrl" v-model="newVideoUrl" placeholder="url" /><br>
     <span>Example: https://staging.coverr.co/s3/mp4/Snow-motion.mp4</span>
     <br>
-    <button v-on:click="addVideo(videos.count)" id="addVideo">Add New Video</button>
+    <button v-on:click="addVideo()" id="addVideo">Add New Video</button>
     <br>
-    <router-link class="button" :to="{ name: 'CreateCourse', params: { courseID, newVideoId, newVideoTitle, newVideoUrl, contentType } }">
+
+    <router-link class="button" :to="{ name: 'CreateCourse', params: { newVideoId, newVideoTitle, newVideoUrl, contentType } }">
          Send to CreateCourse
       </router-link>
+
     <ul>
-        <li v-for="video in videos" :key="video.id" >
+        <li v-for="video in info" :key="video.id" >
             <h3>{{ video.title + " (" + video.id + ")"}}</h3>
-             <p>{{ video.url }}</p>
-             <button v-on:click="show(video.url)">View</button>
+             <p>{{ video.content }}</p>
+             <button v-on:click="show(video.content)">View</button>
         </li>
     </ul>
     <modal name="test" :width="640" :height="360">
     <!--
       <video id="my-player" class="video-js" controls preload="auto" poster="//vjs.zencdn.net/v/oceans.png" data-setup='{}' v-bind:src=name ></video>
     -->
-
-    
-    
     <video controls v-bind:src=name width="640"></video>
-
   </modal>
   </div>
 </template>
 <script>
 //window.videojs = require('video.js');
 //import videojs from 'video.js'
+import axios from 'axios';
 export default {
     name: 'VideoModule',
+    mounted() {
+        this.getFromMiddleMan();
+    },
     prop: {
     },
     data() {
         return {
-            name: "",
-            courseID: 0,
+            name: '',
+            info: '',
+            title: "",
             contentType: 'video',
+            content: "",
             showModal: true,
-            videos: [{
-                id: 0,
-                title: "Church",
-                url: "https://staging.coverr.co/s3/mp4/Chruch.mp4"
-            },
-            {
-                id: 1,
-                title: "Road",
-                url: "https://staging.coverr.co/s3/mp4/Road-candies.mp4"
-            },
-            {
-                id: 2,
-                title: "Las Vegas",
-                url: "https://staging.coverr.co/s3/mp4/Not-Eiffel.mp4"
-            },
-            {
-                id: 3,
-                title: "Wing",
-                url: "https://staging.coverr.co/s3/mp4/New-jumbo.mp4"
-            }],
-            newVideoId: 4,
+            videos: '',
             newVideoTitle: '',
             newVideoUrl: '',
             deleted: false
@@ -73,23 +57,35 @@ export default {
   
     methods: {
         addVideo: function() {
-            this.videos.push({id: this.newVideoId++, title: this.newVideoTitle, url: this.newVideoUrl});
+            this.sendToMiddleMan();
+            this.getFromMiddleMan();
         },
         showVideo: function(url) {
-           alert(url);
+            alert(url);
         },
         show(url) {
-                
-                this.$modal.show('test');
-                this.name = url;
-                
+            this.$modal.show('test');
+            this.name = url;
         },
-
         hide () {
-                this.$modal.hide('test');
+            this.$modal.hide('test');
+        },
+        sendToMiddleMan: function(){
+            axios.post('http://ruihui.me/create-course/middle-man.php', {
+                title: this.newVideoTitle,
+                contentType: this.contentType,
+                content: this.newVideoUrl
+            }).then(response => {
+                (this.info = response.data)
+            })
+        },
+        getFromMiddleMan: function() {
+            axios.post('http://ruihui.me/create-course/middle-man.php', {
+            }).then(response => {
+                (this.info = response.data)
+            })
         }
     }
-  
 }
 </script>
 
@@ -116,7 +112,6 @@ li {
   box-shadow: 1px 1px 3px #46484A;
   border-radius: 2px; 
   border-left: 5px solid #5F678D;
-  
 }
 li h3 {
     margin: 0;
@@ -153,7 +148,6 @@ li button:hover {
 li::after {
     clear: both;
 }
-
 a {
   color: #42b983;
 }
@@ -162,7 +156,7 @@ input {
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
-  
+  width: 200px; 
 }
 span {
     font-size: 12px;
