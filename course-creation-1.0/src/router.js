@@ -8,6 +8,9 @@ import CreateCourse from './components/CreateCourse.vue'
 import CloneCourse from './components/CloneCourse.vue'
 import CourseStatus from './components/CourseStatus.vue'
 import TextModule from './components/TextModule.vue'
+import MergeCourse from './components/MergeCourse.vue'
+import AudioModule from './components/AudioModule.vue'
+import PresModule from './components/PresModule.vue'
 
 Vue.use(Router)
 
@@ -34,7 +37,7 @@ export default new Router({
       component: DeactivateCourse
     },
     {
-      path: '/CreateCourse',
+      path: '/CreateCourse/',
       name: 'CreateCourse',
       component: CreateCourse
     },
@@ -52,6 +55,21 @@ export default new Router({
       path: '/TextModule',
       name: 'TextModule',
       component: TextModule
+    },
+    {
+      path: '/MergeCourse',
+      name: 'MergeCourse',
+      component: MergeCourse
+    },
+    {
+      path: '/PresModule',
+      name: 'PresModule',
+      component: PresModule
+    },
+    {
+      path: '/AudioModule',
+      name: 'AudioModule',
+      component: AudioModule
     }
   ]
 })

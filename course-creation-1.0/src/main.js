@@ -4,9 +4,15 @@ import VeeValidate from 'vee-validate'
 import 'vue-trix'
 import router from './router'
 import VModal from 'vue-js-modal'
- 
-Vue.use(VModal)
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css' 
 
+Vue.use(Vuetify)
+Vue.use(VModal)
+Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 Vue.config.productionTip = false
 

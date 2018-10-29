@@ -4,10 +4,10 @@
             <h2>{{moduleTitle}}</h2>
         </header>
         <body>
-            <div v-html="editorContent"></div>       
+            <div v-html="editorContent"></div>
         </body>
         <footer>
-            <router-link :to="{ name: 'CreateCourse', query: { courseID: courseID, moduleID: moduleID, contentType: contentType, moduleTitle: moduleTitle, editorContent: editorContent }}" tag="button">Finished Module</router-link>
+           <v-btn @click= "add">Finished</v-btn>
         </footer>
     </modal>
 </template>
@@ -23,13 +23,22 @@
         },
         data() {
             return {
+                modules: [],
                 submitted: false
             }
         },
         methods: {
             show () {
                 this.submitted = true;
-                console.log('Modal');
+            },
+            add(){
+                this.modules.push(this.moduleTitle);
+                this.saveModules();
+                this.$router.push({name: "CreateCourse"});
+            },
+            saveModules() {
+                const parsed = JSON.stringify(this.modules);
+                localStorage.setItem('modules', parsed);
             },
             hide () {
                 this.$modal.hide('textM');
@@ -40,7 +49,14 @@
         mounted: function () {
             this.$nextTick(function () {
                 this.$modal.show('textM');
+                if (localStorage.getItem('modules')) {
+                    try {
+                        this.modules = JSON.parse(localStorage.getItem('modules'));
+                    } catch(e) {
+                        localStorage.removeItem('modules');
+                    }
+                }
             })
         }
-    }   
+    }
 </script>

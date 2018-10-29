@@ -1,31 +1,30 @@
 <template>
     <main>
-        <h1>Text Module Creation</h1>
-        <form id="textStuff" @submit.prevent= "addText">
+        <h1>Audio Module Creation</h1>
+        <form id="audioStuff" @submit.prevent= "addAudio">
             <label for="ttl">Enter a title for your module: </label>
             <input type="text" id= "ttl"  v-model= "moduleTitle" />
             <br/>
             <br/>
             <br/>
-            <label for="editor1"><strong>Enter free form text to fill the module:</strong></label>
+            <label for="f"><strong>Upload an audio file:</strong></label>
             <br/>
             <br/>
-            <input id="editor1" type="hidden" name="content" >
-            <VueTrix inputId="editor1" v-model= "editorContent"/>
+            <input type="file" id="f" ref="file" v-on:change="handleFileUpload()"/>
             <br/>
             <br/>
             <input type="submit" value= "Submit">
         </form>
-        <TextModal ref="modal" v-on:hidden= "clear" v-bind:moduleTitle= "moduleTitle" v-bind:editorContent= "editorContent" v-bind:courseID= "courseID" v-bind:moduleID= "moduleID" v-bind:contentType= "contentType" ></TextModal>
+        <AudioModal ref="modal" v-on:hidden= "clear" v-bind:moduleTitle= "moduleTitle" v-bind:audioFile= "audioFile" v-bind:courseID= "courseID" v-bind:moduleID= "moduleID" v-bind:contentType= "contentType" ></AudioModal>
     </main>
 </template>
 
 <script>
-    import router from '../router'
-    import TextModal from './TextModal.vue';
+    import axios from 'axios';
+    import AudioModal from './AudioModal.vue';
     export default {
         components: {
-            TextModal
+            AudioModal
         },
         data() {
             return {
@@ -33,19 +32,44 @@
                 courseID: 0,
                 moduleID: 0,
                 contentType: '',
-                editorContent: null,
+                audioFile: null,
                 submitted: false
             }
         },
         methods: {
            
-            addText: function(){
+            addAudio: function(){
                 this.courseID = 5;
                 this.moduleID = 9;
-                this.contentType = 'text';
+                this.contentType = 'audio';
                 this.submitted = true;
-                console.log(this);
                 this.$refs.modal.show()
+            },
+
+            handleFileUpload(){
+                this.audioFile = this.$refs.file.files[0];
+            },
+
+            addVideo: function() {
+            this.sendToMiddleMan();
+            this.getFromMiddleMan();
+            },
+
+            sendToMiddleMan: function(){
+                axios.post('http://ruihui.me/create-course/middle-man.php', {
+                    title: this.moduleTitle,
+                    contentType: this.contentType,
+                    content: this.audioFile
+                }).then(response => {
+                    (this.info = response.data)
+                })
+            },
+
+            getFromMiddleMan: function() {
+                axios.post('http://ruihui.me/create-course/middle-man.php', {
+                }).then(response => {
+                    (this.info = response.data)
+                })
             },
 
             showDemo: function(){
@@ -66,7 +90,7 @@
         mounted: function () {
             if(this.$route.query.moduleTitle && this.$route.query.moduleID && this.$route.query.moduleTitle 
                  && this.$route.query.moduleTitle && this.$route.query.moduleTitle){
-                     showDemo();
+                     this.showDemo();
             }
         }
     }   
