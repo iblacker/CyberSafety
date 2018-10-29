@@ -7,11 +7,11 @@ import VModal from 'vue-js-modal'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import VueFormWizard from 'vue-form-wizard'
-import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css' 
 
+Vue.use(Vuetify)
 Vue.use(VModal)
-Vue.use(VueFormWizard)
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 Vue.config.productionTip = false

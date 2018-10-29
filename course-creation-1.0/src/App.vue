@@ -64,6 +64,7 @@ body, html {
 }
 h1 {
   padding-top: 20px;
+  padding-bottom: 20px;
   text-align: center;
 }
 nav {
