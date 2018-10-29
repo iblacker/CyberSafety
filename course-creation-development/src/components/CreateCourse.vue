@@ -14,6 +14,7 @@
         <button v-on:click = "addPresentation()">Add Presentation</button>
         <router-link to="/TextModule">Add Text</router-link>
         <router-link to="/VideoModule">Add Video</router-link>
+        <router-link to="/QuizModule">Add Quiz</router-link>
 
       </form>
 
